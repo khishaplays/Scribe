@@ -5,7 +5,7 @@ from rich.align import Align
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
-
+from scribe.commands.github import app as github_app
 from scribe.commands.projects import (
     app as projects_app,
     list_projects,
@@ -23,8 +23,7 @@ console = Console()
 
 # Register project management commands
 app.add_typer(projects_app, name="project")
-
-
+app.add_typer(github_app, name="github")
 def show_home():
     """Display the Scribe welcome screen."""
 
