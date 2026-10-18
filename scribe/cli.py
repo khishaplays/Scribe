@@ -1,3 +1,4 @@
+
 import typer
 
 from rich.align import Align
@@ -5,7 +6,13 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
+from scribe.commands.projects import (
+    app as projects_app,
+    list_projects,
+)
 
+
+# Initialize Scribe CLI
 app = typer.Typer(
     name="scribe",
     help="Your development, documented.",
@@ -14,12 +21,18 @@ app = typer.Typer(
 
 console = Console()
 
+# Register project management commands
+app.add_typer(projects_app, name="project")
+
 
 def show_home():
-    """Display the Scribe home screen."""
+    """Display the Scribe welcome screen."""
 
     title = Text("S C R I B E", style="bold")
-    subtitle = Text("your development, documented.", style="dim")
+    subtitle = Text(
+        "your development, documented.",
+        style="dim",
+    )
 
     header = Text()
     header.append(title)
@@ -34,9 +47,11 @@ def show_home():
             border_style="bright_black",
         )
     )
-
     console.print()
-    console.print("  Welcome to your developer space.", style="dim")
+    console.print(
+        "  Welcome to your developer space.",
+        style="dim",
+    )
     console.print()
 
 
@@ -54,22 +69,23 @@ def today():
 
     console.print()
     console.print("  TODAY", style="bold")
-    console.print("  ─────────────────────────────────────", style="dim")
+    console.print(
+        "  ─────────────────────────────────────",
+        style="dim",
+    )
     console.print()
-    console.print("  No activity recorded yet.", style="dim")
+    console.print(
+        "  No activity recorded yet.",
+        style="dim",
+    )
     console.print()
 
 
 @app.command()
 def projects():
-    """View your development projects."""
+    """View all saved development projects."""
 
-    console.print()
-    console.print("  PROJECTS", style="bold")
-    console.print("  ─────────────────────────────────────", style="dim")
-    console.print()
-    console.print("  No projects yet.", style="dim")
-    console.print()
+    list_projects()
 
 
 if __name__ == "__main__":
